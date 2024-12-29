@@ -18,36 +18,36 @@ GLOBAL$code.convtm.libs.glue <- paste0('c("', paste(libs[c(10, 11, 12, 20, 19)],
 # plot panels
 body.panel.right.compare <- card.pro(
   title = "File compare",
-  icon = icon("chart-area"),
-  collapsed = 1L,
-  header.bg = "blueLight",
+  icon = icon("folder"),
+  collapsed = 0L,
+  header.bg = "yellow",
   xtra.header.content = textOutput("reportgraphstatus"),
   div(
     id = "reportgraphstatus2",
-    tags$blockquote(style = "color:blue", "Tabs: DV.vs.TSFD (concentration versus time since first dose) and DV.vs.TSLD (concentration versus time since last dose)")
+    tags$blockquote(style = "color:blue", "File comparer and Code QC'er")
   ),
   tabs = list(
     tabEntry(
-      "DV.vs.TSFD",
-      column(width = 6, class = "p-0", selectInput("datatoUseconc1", "Data version to use:", choices = c())),
+      "File compare",
+      column(width = 6, class = "p-0", selectInput("datatoUseconc1", "File to use:", choices = c())),
       column(
         width = 6, class = "p-0",
         conditionalPanel(
           condition = "input.cgraphtype == 7 | input.cgraphtype == 8", numericInput("pagetoshowc1", "Page to show", value = 1)
         )
       ),
-      plotOutput("concvtimeplot1", height = 500)
+
     ),
     tabEntry(
-      "DV.vs.TSLD",
-      column(width = 6, class = "p-0", selectInput("datatoUseconc2", "Data version to use:", choices = c())),
+      "Code QC",
+      column(width = 6, class = "p-0", selectInput("datatoUseconc2", "File to use:", choices = c())),
       column(
         width = 6, class = "p-0",
         conditionalPanel(
           condition = "input.cgraphtype == 7 | input.cgraphtype == 8", numericInput("pagetoshowc2", "Page to show", value = 1)
         )
       ),
-      plotOutput("concvtimeplot2", height = 500)
+
     )
   ),
   sidebar = div(

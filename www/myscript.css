@@ -1,30 +1,25 @@
 #chat-container .chat-list-body{
   height: 100%!important;
 }
-#tracksimulations, #reportgraphstatus{
-  color: red!important;
-}
-#summaryrestbl table{
-  width:100%!important;
+
+#dirfiletype1afiles, #dirfiletype1bfiles{
+  max-height: 150px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  overflow-y:scroll;
 }
 
 .chat-list-body .selectize-input {
     min-height: 20px!important;
 }
 
-#summaryexptbl table{
-  width: 100%!important;
-}
 
-#summaryexptbl table tr>td{
-  font-weight: bold;
-}
-#summaryexptbl table th {
-    background-color: gray;
-    color: white;
-}
 
 
 #chat-container {
   z-index: 101;
+}
+
+#trackfileupdates{
+  color:red;
 }

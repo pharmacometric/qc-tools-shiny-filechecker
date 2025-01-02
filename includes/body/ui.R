@@ -11,7 +11,8 @@
 # assemble right contents
 body.panel.right = primePanel(
   width = 12,
-  body.panel.right.compare
+  body.panel.right.compare,
+  body.panel.right.codecheck
 )
 
 body.main = moveable(

@@ -127,6 +127,203 @@ pop_off = function(.) {
   }]
 }
 
+compare_files <- function(file1, file2) {
+  # Check if both files exist
+  if (!file.exists(file1) || !file.exists(file2)) {
+    stop("One or both of the files do not exist.")
+  }
+
+  # Read the content of the files
+  content1 <- readLines(file1, warn = FALSE)
+  content2 <- readLines(file2, warn = FALSE)
+
+  # Compare the contents
+  identical(content1, content2)
+}
+
+compare_files_md5 <- function(file1, file2) {
+  # Check if both files exist
+  if (!file.exists(file1) || !file.exists(file2)) {
+    stop("One or both of the files do not exist.")
+  }
+
+  # Calculate MD5 hash for both files
+  hash1 <- utils::md5sum(file1)
+  hash2 <- utils::md5sum(file2)
+
+  # Compare the hashes
+  identical(hash1, hash2)
+}
+
+
+percent_similarity <- function(file1, file2) {
+  # Check if both files exist
+  if (!file.exists(file1) || !file.exists(file2)) {
+    stop("One or both of the files do not exist.")
+  }
+
+  # Read the content of the files
+  content1 <- readLines(file1, warn = FALSE)
+  content2 <- readLines(file2, warn = FALSE)
+
+  # Make both files the same length by padding shorter file with empty lines
+  max_length <- max(length(content1), length(content2))
+  content1 <- c(content1, rep("", max_length - length(content1)))
+  content2 <- c(content2, rep("", max_length - length(content2)))
+
+  # Calculate the number of matching lines
+  matching_lines <- sum(content1 == content2)
+
+  # Calculate percent similarity
+  percent <- (matching_lines / max_length) * 100
+
+  return(percent)
+}
+
+
+
+compare_word_files <- function(file1, file2) {
+  # Extract text from both Word files
+  doc1 <- read_docx(file1) %>% docx_summary() %>% dplyr::pull(text) %>% paste(collapse = "\n")
+  doc2 <- read_docx(file2) %>% docx_summary() %>% dplyr::pull(text) %>% paste(collapse = "\n")
+
+  # Calculate similarity (e.g., line-by-line)
+  lines1 <- unlist(strsplit(doc1, "\n"))
+  lines2 <- unlist(strsplit(doc2, "\n"))
+
+  max_length <- max(length(lines1), length(lines2))
+  lines1 <- c(lines1, rep("", max_length - length(lines1)))
+  lines2 <- c(lines2, rep("", max_length - length(lines2)))
+
+  similarity <- sum(lines1 == lines2) / max_length * 100
+  return(similarity)
+}
+
+
+compare_images <- function(file1, file2) {
+  # Load the images
+  img1 <- image_read(file1)
+  img2 <- image_read(file2)
+
+  # Resize images to the same dimensions
+  img2 <- image_resize(img2, image_info(img1)$geometry)
+
+  # Calculate pixel differences
+  diff <- image_compare(img1, img2, metric = "AE") # Absolute Error
+
+  # Convert to percent similarity
+  total_pixels <- prod(dim(as.raster(img1)))
+  percent_similarity <- 100 - (diff / total_pixels) * 100
+
+  return(percent_similarity)
+}
+
+
+compare_pdfs <- function(file1, file2) {
+  # Extract text from both PDFs
+  text1 <- pdf_text(file1) %>% paste(collapse = "\n")
+  text2 <- pdf_text(file2) %>% paste(collapse = "\n")
+
+  # Split text into lines for comparison
+  lines1 <- unlist(strsplit(text1, "\n"))
+  lines2 <- unlist(strsplit(text2, "\n"))
+
+  # Make lengths equal
+  max_length <- max(length(lines1), length(lines2))
+  lines1 <- c(lines1, rep("", max_length - length(lines1)))
+  lines2 <- c(lines2, rep("", max_length - length(lines2)))
+
+  # Calculate percent similarity
+  matching_lines <- sum(lines1 == lines2)
+  percent_similarity <- (matching_lines / max_length) * 100
+  return(percent_similarity)
+}
+
+compare_csvs <- function(file1, file2) {
+  # Read the CSV files
+  data1 <- read.csv(file1, stringsAsFactors = FALSE)
+  data2 <- read.csv(file2, stringsAsFactors = FALSE)
+
+  # Check for identical structure
+  if (!all(names(data1) == names(data2)) || nrow(data1) != nrow(data2)) {
+    return(0) # 0% similarity if structure differs
+  }
+
+  # Calculate percent similarity
+  total_cells <- nrow(data1) * ncol(data1)
+  matching_cells <- sum(data1 == data2, na.rm = TRUE)
+  percent_similarity <- (matching_cells / total_cells) * 100
+  return(percent_similarity)
+}
+
+
+compare_ppts <- function(file1, file2) {
+  # Read presentations
+  ppt1 <- read_pptx(file1)
+  ppt2 <- read_pptx(file2)
+
+  # Extract text from slides
+  text1 <- pptx_summary(ppt1) %>% dplyr::pull(text) %>% paste(collapse = "\n")
+  text2 <- pptx_summary(ppt2) %>% dplyr::pull(text) %>% paste(collapse = "\n")
+
+  # Compare the extracted text
+  lines1 <- unlist(strsplit(text1, "\n"))
+  lines2 <- unlist(strsplit(text2, "\n"))
+
+  max_length <- max(length(lines1), length(lines2))
+  lines1 <- c(lines1, rep("", max_length - length(lines1)))
+  lines2 <- c(lines2, rep("", max_length - length(lines2)))
+
+  matching_lines <- sum(lines1 == lines2)
+  percent_similarity <- (matching_lines / max_length) * 100
+  return(percent_similarity)
+}
+
+switchicons = function(xfile = ""){
+  # file 2
+  # file-excel 2
+  # file-export 1 solid
+  # file-word 2
+  # file-import 1 solid
+  # file-pdf 2
+  # file-powerpoint 1 solid
+  # file-lines 1 solid
+  # file-image 1 solid
+  # file-csv 1 solid
+  # file-code 2
+  # file-circle-question 1 solid
+  #
+  # folder 2
+  # folder-open 2
+  # folder-closed 2
+  # folder-tree 1
+
+  .icon = "file-circle-question"
+  switch (xfile,
+    "txt" = {.icon = "file"},
+    "xlsx" = {.icon = "file-excel"},
+    "xls" = {.icon = "file-excel"},
+    "export" = {.icon = "file-export"},
+    "doc" = {.icon = "file-word"},
+    "docx" = {.icon = "file-word"},
+    "import" = {.icon = "file-import"},
+    "pdf" = {.icon = "file-pdf"},
+    "ppt" = {.icon = "file-powerpoint"},
+    "pptx" = {.icon = "file-powerpoint"},
+    "lines" = {.icon = "file-lines"},
+    "png" = {.icon = "file-image"},
+    "jpg" = {.icon = "file-image"},
+    "tiff" = {.icon = "file-image"},
+    "csv" = {.icon = "file-csv"},
+    "code" = {.icon = "file-code"},
+    "folder" = {.icon = "folder"},
+    "fopen" = {.icon = "folder-open"},
+    "fclose" = {.icon = "folder-closed"},
+    "dtree" = {.icon = "folder-tree"}
+  )
+
+  return(.icon)
+}
 
 calculate_auc = function(time, concentration) {
   # Check if inputs are of the same length
@@ -226,3 +423,17 @@ extract_pattern = function(file) {
 }
 
 
+
+outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value, color = "red") {
+  tags$div(
+    id = id,
+    tags$span(
+      class = "text", label,
+      tags$span(class = "pull-right", id = id2, value)
+    ),
+    tags$div(
+      class = "progress",
+      tags$div(class = paste0("progress-bar bg-color-", color),`data-transitiongoal`="1", `aria-valuenow`="1", style = paste0("width: ", value2, ";"), value2)
+    )
+  )
+}

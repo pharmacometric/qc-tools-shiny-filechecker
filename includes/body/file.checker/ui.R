@@ -20,43 +20,33 @@ body.panel.right.compare <- card.pro(
   title = "File compare",
   icon = icon("file"),
   collapsed = 1L,
-  header.bg = "greenLight",
+  header.bg = "purple",
   xtra.header.content = textOutput("reportgraphstatus"),
-  div(
-    id = "reportgraphstatus2",
-    tags$blockquote(style = "color:blue", "File comparer")
-  ),
-  column(width = 6, class = "p-0", selectInput("datatoUseconc1", "File to use:", choices = c())),
-  column(
-    width = 6, class = "p-0",
-    conditionalPanel(
-      condition = "input.cgraphtype == 7 | input.cgraphtype == 8", numericInput("pagetoshowc1", "Page to show", value = 1)
-    )
-  ),
+
+
+  column(width = 6, class = "p-0", selectInput("datatoUseconc1", "Original file:", choices = c(), width = "98%")),
+  column(width = 6, class = "p-0", selectInput("datatoUseconc1", "QC file:", choices = c(), width = "98%")),
+
+  column(width = 12, id="fcomparisonmetricsa",
+         outcomparev(id="comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = "80%", color = "green"),
+         outcomparev(id="comparefile2", id2 = "comparefile2b", label = "Sameness of files", value = "0%", color = "red")
+         ),
+  # diff files
+  column(width = 12,
+  diffrOutput("diffrfiles",width = "100%", height = "600px")),
 
 
   sidebar = div(
     tags$label("Graph settings"),
-    selectInput("cgraphtype", "Graph type", choices = c(
-      "overall - spaghetti plot" = 1,
-      "overall - scatter plot" = 2,
-      "overall - summarised" = 3,
-      "facet - spaghetti plot" = 4,
-      "facet - scatter plot" = 5,
-      "facet - summarised" = 6,
-      "individual - spaghetti plot" = 7,
-      "individual - scatter plot" = 8
-    ), selected = "Facet by Group", width = "90%"),
-    conditionalPanel(
-      condition = "input.cgraphtype == 3 | input.cgraphtype == 6",
-      selectInput("graphsummtype", "Statistic", choices = c(
-        "Mean" = 1, "Mean ± SD" = 2, "Mean ± SEM" = 3, "Median" = 4, "Median ± 90% PI" = 5, "Median ± 95% PI" = 6
-      ), selected = "Median ± 90% PI", width = "90%")
-    ),
-    conditionalPanel(
-      condition = "input.cgraphtype == 4 |input.cgraphtype == 5 |input.cgraphtype == 6 |input.cgraphtype == 7 | input.cgraphtype == 8",
-      numericInput("graphcolnum", "Facet column number", value = 4, width = "90%")
-    ),
+    selectInput("fcwordWrap", "Word wrap", choices = c(
+      "True" = 1, "False" = 0
+    ), width = "90%"),
+    # textInput("fcwidth", "Width of diff", "100%", width = "95%"),
+    # textInput("fcheight", "Height of dif", "500", width = "95%"),
+    textInput("fcminjs", "Minimum jump size", "5000", width = "95%"),
+    textInput("fccons", "Minimum context size", "3", width = "95%"),
+
+
     selectInput("loglinear", "semi-log or linear", choices = c(
       "linear", "semi-log"
     ), width = "90%"),

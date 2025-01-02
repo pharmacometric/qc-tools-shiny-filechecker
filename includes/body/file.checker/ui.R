@@ -2,13 +2,13 @@
 ############################################################################
 ##  Document Path: ~/GitHub/pharmacometric-shiny-template-eda/includes/body/conc.vs.time/ui.R
 ##
-##  Description: User interface for concentration vs time plots
+##  Description: User interface for file compare
 ##
 ##  R version 4.4.1 (2024-06-14 ucrt)
 ##
 #############################################################################
 #############################################################################
-print("conctime working...")
+
 # for(u in indexed(libs))message(u$key,"-",u$val)
 # for exporting code
 GLOBAL$code.convtm.tpl <- paste0(this.path, "/code.tpl")
@@ -18,38 +18,23 @@ GLOBAL$code.convtm.libs.glue <- paste0('c("', paste(libs[c(10, 11, 12, 20, 19)],
 # plot panels
 body.panel.right.compare <- card.pro(
   title = "File compare",
-  icon = icon("folder"),
-  collapsed = 0L,
-  header.bg = "yellow",
+  icon = icon("file"),
+  collapsed = 1L,
+  header.bg = "greenLight",
   xtra.header.content = textOutput("reportgraphstatus"),
   div(
     id = "reportgraphstatus2",
-    tags$blockquote(style = "color:blue", "File comparer and Code QC'er")
+    tags$blockquote(style = "color:blue", "File comparer")
   ),
-  tabs = list(
-    tabEntry(
-      "File compare",
-      column(width = 6, class = "p-0", selectInput("datatoUseconc1", "File to use:", choices = c())),
-      column(
-        width = 6, class = "p-0",
-        conditionalPanel(
-          condition = "input.cgraphtype == 7 | input.cgraphtype == 8", numericInput("pagetoshowc1", "Page to show", value = 1)
-        )
-      ),
-
-    ),
-    tabEntry(
-      "Code QC",
-      column(width = 6, class = "p-0", selectInput("datatoUseconc2", "File to use:", choices = c())),
-      column(
-        width = 6, class = "p-0",
-        conditionalPanel(
-          condition = "input.cgraphtype == 7 | input.cgraphtype == 8", numericInput("pagetoshowc2", "Page to show", value = 1)
-        )
-      ),
-
+  column(width = 6, class = "p-0", selectInput("datatoUseconc1", "File to use:", choices = c())),
+  column(
+    width = 6, class = "p-0",
+    conditionalPanel(
+      condition = "input.cgraphtype == 7 | input.cgraphtype == 8", numericInput("pagetoshowc1", "Page to show", value = 1)
     )
   ),
+
+
   sidebar = div(
     tags$label("Graph settings"),
     selectInput("cgraphtype", "Graph type", choices = c(

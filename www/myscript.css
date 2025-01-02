@@ -14,7 +14,9 @@
 }
 
 
-
+.padding-15{
+  overflow:scroll;
+}
 
 #chat-container {
   z-index: 101;
@@ -22,4 +24,17 @@
 
 #trackfileupdates{
   color:red;
+}
+
+
+table.diff{
+  width: 110%!important;
+}
+
+table.diff .line-no{
+  max-width: 50px!important;
+}
+
+table.diff .code{
+  width: 48%!important;
 }

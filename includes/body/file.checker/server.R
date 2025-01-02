@@ -1,29 +1,10 @@
 ############################################################################
 ############################################################################
-##  Document Path: ~/GitHub/pharmacometric-shiny-template-eda/includes/body/conc.vs.time/server.R
+##  Document Path: includes/body/conc.vs.time/server.R
 ##
-##  Description: Server function for concentration versus time plots
+##  Description: Server function for file comparer
 ##
 ##  R Version: 4.4.1 (2024-06-14 ucrt)
-##
-##  Plot types(input$cgraphtype)
-##  "overall - spaghetti plot" = 1,
-##  "overall - scatter plot" = 2,
-##  "overall - summarised" = 3,
-##  "facet - spaghetti plot" = 4,
-##  "facet - scatter plot" = 5,
-##  "facet - summarised" = 6,
-##  "individual - spaghetti plot" = 7,
-##  "individual - scatter plot" = 8
-##
-##
-##  Statistic (input$graphsummtype)
-##  "Mean" = 1,
-##  "Mean ± SD" = 2,
-##  "Mean ± SEM" = 3,
-##  "Median" = 4,
-##  "Median ± 90% PI" = 5,
-##  "Median ± 95% PI" = 6
 ##
 #############################################################################
 #############################################################################

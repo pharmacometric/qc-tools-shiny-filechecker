@@ -42,7 +42,7 @@ body.panel.left.setup = card.pro(
     div(id="dirfiletype1bfiles")),
   ),
   hr(),
-
+  "56 Files were found to have the same file names between the two paths",
   footer = textOutput("trackfileupdates")
 )
 

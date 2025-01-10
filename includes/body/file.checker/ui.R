@@ -27,9 +27,9 @@ body.panel.right.compare <- card.pro(
   column(width = 6, class = "p-0", selectInput("codecfile2", "QC file:", choices = c(), width = "98%")),
 
 
-  column(width = 12,div(id="fcomparisonmetricsa")         ),
+  div(id="fcomparisonmetricsa"),
   # diff files
-  column(width = 12,
+  column(width = 12, style="padding:0px",
   diffrOutput("diffrfiles",width = "100%", height = "600px")),
 
 

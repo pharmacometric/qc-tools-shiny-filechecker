@@ -21,15 +21,13 @@ body.panel.right.compare <- card.pro(
   icon = icon("file"),
   collapsed = 1L,
   header.bg = "purple",
-  div("filecomparemessage"),
-
+  div(id="filecomparemessage"),
   column(width = 6, class = "p-0", selectInput("codecfile1", "Original file:", choices = c(), width = "98%")),
   column(width = 6, class = "p-0", selectInput("codecfile2", "QC file:", choices = c(), width = "98%")),
-
-
   div(id="fcomparisonmetricsa"),
   # diff files
   column(width = 12, style="padding:0px",
+         tags$strong("File content comparison"),
   diffrOutput("diffrfiles",width = "100%", height = "600px")),
 
 

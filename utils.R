@@ -30,7 +30,8 @@ updateDirStatus4 = function(g){
 
 }
 updateFCStatus = function(message = "",color="red") {
-  shinyjs::runjs(paste0("$('#filecomparemessage').html('<blockquote style=\"color:", color, "\">", message, "</blockquote>')"))
+  if(message=="") shinyjs::runjs(paste0("$('#filecomparemessage').html('')"))
+  else shinyjs::runjs(paste0("$('#filecomparemessage').html('<blockquote style=\"color:", color, "\">", message, "</blockquote>')"))
 }
 
 
@@ -134,7 +135,8 @@ pop_off = function(.) {
 compare_files <- function(file1, file2) {
   # Check if both files exist
   if (!file.exists(file1) || !file.exists(file2)) {
-    stop("One or both of the files do not exist.")
+    message("One or both of the files do not exist.")
+    return(FALSE)
   }
 
   # Read the content of the files
@@ -148,7 +150,8 @@ compare_files <- function(file1, file2) {
 compare_files_md5 <- function(file1, file2) {
   # Check if both files exist
   if (!file.exists(file1) || !file.exists(file2)) {
-    stop("One or both of the files do not exist.")
+    message("One or both of the files do not exist.")
+    return(FALSE)
   }
 
   # Calculate MD5 hash for both files
@@ -163,7 +166,8 @@ compare_files_md5 <- function(file1, file2) {
 percent_similarity <- function(file1, file2) {
   # Check if both files exist
   if (!file.exists(file1) || !file.exists(file2)) {
-    stop("One or both of the files do not exist.")
+    message("One or both of the files do not exist.")
+    return(0)
   }
 
   # Read the content of the files
@@ -331,7 +335,9 @@ switchicons = function(xfile = ""){
 
 
 
-
+shwhdbtn <- function(id= "dirfiletype1afiles"){
+  tags$div(tags$button("Show:hide files", class="btn btn-default mb-2", onclick = paste0("document.querySelector('#",id,"').classList.toggle('hidethis')")))
+}
 
 extract_pattern = function(file) {
   extract_words_with_braces = function(string) {

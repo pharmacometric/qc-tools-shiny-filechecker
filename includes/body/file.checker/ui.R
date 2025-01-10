@@ -24,8 +24,8 @@ body.panel.right.compare <- card.pro(
   xtra.header.content = textOutput("reportgraphstatus"),
 
 
-  column(width = 6, class = "p-0", selectInput("datatoUseconc1", "Original file:", choices = c(), width = "98%")),
-  column(width = 6, class = "p-0", selectInput("datatoUseconc1", "QC file:", choices = c(), width = "98%")),
+  column(width = 6, class = "p-0", selectInput("codecfile1", "Original file:", choices = c(), width = "98%")),
+  column(width = 6, class = "p-0", selectInput("codecfile2", "QC file:", choices = c(), width = "98%")),
 
   column(width = 12, id="fcomparisonmetricsa",
          outcomparev(id="comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = "80%", color = "green"),

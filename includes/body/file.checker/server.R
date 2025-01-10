@@ -12,16 +12,17 @@
 # set data versions to use for plotting
 
 observe({
-
   if (input$codecfile1 != "" & input$codecfile2 != "") {
     GLOBAL$selectedCheckFiles <- list(
       file.path(input$dirfiletype1a, input$codecfile1),
       file.path(input$dirfiletype1b, input$codecfile2)
     )
-
-    GLOBAL$selectedCheckFilesProcess <- TRUE
+    if (length(unique(tools::file_ext(GLOBAL$selectedCheckFiles))) == 2) {
+      updateFCStatus("You may only compare files with the same file extension.")
+    } else {
+      GLOBAL$selectedCheckFilesProcess <- TRUE
     }
-
+  }
 })
 
 
@@ -40,9 +41,30 @@ output$concvtimeplot2 <- renderPlot({})
 # diff file
 observe({
   if (GLOBAL$selectedCheckFilesProcess == TRUE) {
+    file1 <- GLOBAL$selectedCheckFiles[[1]][1]
+    file2 <- GLOBAL$selectedCheckFiles[[2]][1]
+
+
+    # compare files
+    samefileness <- compare_files_md5(file1, file2)
+    print(samefileness)
+    percsim <- percent_similarity(file1, file2)
+    percsimcol <- ifelse(percsim <= 50, "red", "green")
+    insertUI(
+      selector = "#fcomparisonmetricsa",
+      where = "afterEnd",
+      tagList(
+        outexactcomp(filename = file1 == file2, sameness = samefileness),
+        outcomparev(id = "comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = paste0(percsim, "%"), color = percsimcol),
+      )
+    )
+
+
+
+
+
+    # do a diff
     output$diffrfiles <- renderDiffr({
-      file1 <- GLOBAL$selectedCheckFiles[[1]][1]
-      file2 <- GLOBAL$selectedCheckFiles[[2]][1]
       diffr(file1, file2,
         wordWrap = input$fcwordWrap,
         # width = input$fcwidth,

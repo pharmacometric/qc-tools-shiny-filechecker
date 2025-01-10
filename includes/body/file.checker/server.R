@@ -10,8 +10,7 @@
 #############################################################################
 
 # set data versions to use for plotting
-updateSelectInput(session, "datatoUseconc1", choices = c())
-updateSelectInput(session, "datatoUseconc2", choices = c())
+
 
 
 

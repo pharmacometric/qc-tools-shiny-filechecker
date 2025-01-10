@@ -33,3 +33,5 @@ for (ui_each in c(
 # declare the global reactive and regular values
 GLOBAL= reactiveValues()
 GLOBAL$files = list()
+GLOBAL$selectedCheckFiles <- list()
+GLOBAL$selectedCheckFilesProcess <- FALSE

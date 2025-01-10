@@ -36,13 +36,13 @@ body.panel.left.setup = card.pro(
     # Taken from: https://github.com/ronkeizer/nonmem_examples
     column(width = 6,
     textInput("dirfiletype1a", "Local Original files directory path","www/example/Original",width = "100%"),
-    div(id="dirfiletype1afiles")),
+    shwhdbtn("dirfiletype1afiles"),
+    div(id="dirfiletype1afiles",class="hidethis")),
     column(width = 6,
     textInput("dirfiletype1b", "Local QC files directory path","www/example/QC",width = "100%"),
-    div(id="dirfiletype1bfiles")),
+    shwhdbtn("dirfiletype1bfiles"),
+    div(id="dirfiletype1bfiles",class="hidethis")),
   ),
-  hr(),
-  "56 Files were found to have the same file names between the two paths",
   footer = textOutput("trackfileupdates")
 )
 

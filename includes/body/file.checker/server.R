@@ -20,6 +20,7 @@ observe({
     if (length(unique(tools::file_ext(GLOBAL$selectedCheckFiles))) == 2) {
       updateFCStatus("You may only compare files with the same file extension.")
     } else {
+      updateFCStatus("")
       GLOBAL$selectedCheckFilesProcess <- TRUE
     }
   }
@@ -54,7 +55,7 @@ observe({
       selector = "#fcomparisonmetricsa",
       where = "beforeEnd",
       tagList(
-        outexactcomp(filename = file1 == file2, sameness = samefileness),
+        outexactcomp(filename = file1 == file2, sameness = samefileness),br(),br(),
         outcomparev(id = "comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = paste0(percsim, "%"), color = percsimcol),
       )
     )
@@ -71,7 +72,7 @@ observe({
         # height = input$fcheight,
         minJumpSize = input$fcminjs,
         contextSize = input$fccons,
-        before = "Original", after = "QC"
+        before = paste0("Original (",basename(file1),")"), paste0("QC (",basename(file2),")")
       )
     })
     GLOBAL$selectedCheckFilesProcess <- FALSE

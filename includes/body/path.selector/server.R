@@ -21,7 +21,7 @@ observeEvent(input$dirfiletype1a,{
   }
 
   files3 = sort(list.files(path = input$dirfiletype1a))
-  updateSelectInput(session, "codecfile1", choices = c("Select file",files3))
+  updateSelectInput(session, "codecfile1", choices = c("Select file"="",files3))
 
   for(kfil in files3){
     fillisttxt = c(fillisttxt,paste0('<div class="filelistc1"><i class="fas fa-file-pdf" role="presentation" aria-label="chart-area icon"></i> ',
@@ -39,7 +39,7 @@ observeEvent(input$dirfiletype1b,{
   }
 
   files3 = sort(list.files(path = input$dirfiletype1b))
-  updateSelectInput(session, "codecfile2", choices = c("Select file",files3))
+  updateSelectInput(session, "codecfile2", choices = c("Select file"="",files3))
 
   for(kfil in files3){
     fillisttxt = c(fillisttxt,paste0('<div class="filelistc1"><i class="fa-regular fa-file-excel"></i> <i class="fa-solid fa-file-word"></i> ',

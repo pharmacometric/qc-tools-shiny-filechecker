@@ -11,7 +11,18 @@
 
 # set data versions to use for plotting
 
+observe({
 
+  if (input$codecfile1 != "" & input$codecfile2 != "") {
+    GLOBAL$selectedCheckFiles <- list(
+      file.path(input$dirfiletype1a, input$codecfile1),
+      file.path(input$dirfiletype1b, input$codecfile2)
+    )
+
+    GLOBAL$selectedCheckFilesProcess <- TRUE
+    }
+
+})
 
 
 
@@ -27,14 +38,20 @@ output$concvtimeplot2 <- renderPlot({})
 
 
 # diff file
-
-output$diffrfiles <- renderDiffr({
-  file1 = "www/example/Original/sampleplotcode.R"
-  file2 = "www/example/QC/sampleplotcode_qc.R"
-  diffr(file1, file2, wordWrap = input$fcwordWrap,
-        #width = input$fcwidth,
-        #height = input$fcheight,
+observe({
+  if (GLOBAL$selectedCheckFilesProcess == TRUE) {
+    output$diffrfiles <- renderDiffr({
+      file1 <- GLOBAL$selectedCheckFiles[[1]][1]
+      file2 <- GLOBAL$selectedCheckFiles[[2]][1]
+      diffr(file1, file2,
+        wordWrap = input$fcwordWrap,
+        # width = input$fcwidth,
+        # height = input$fcheight,
         minJumpSize = input$fcminjs,
         contextSize = input$fccons,
-        before = "Original", after = "QC")
+        before = "Original", after = "QC"
+      )
+    })
+    GLOBAL$selectedCheckFilesProcess <- FALSE
+  }
 })

@@ -47,12 +47,12 @@ observe({
 
     # compare files
     samefileness <- compare_files_md5(file1, file2)
-    print(samefileness)
     percsim <- percent_similarity(file1, file2)
     percsimcol <- ifelse(percsim <= 50, "red", "green")
+    shinyjs::runjs("$('#fcomparisonmetricsa').html('')")
     insertUI(
       selector = "#fcomparisonmetricsa",
-      where = "afterEnd",
+      where = "beforeEnd",
       tagList(
         outexactcomp(filename = file1 == file2, sameness = samefileness),
         outcomparev(id = "comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = paste0(percsim, "%"), color = percsimcol),

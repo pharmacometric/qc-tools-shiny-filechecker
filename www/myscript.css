@@ -13,8 +13,10 @@
     min-height: 20px!important;
 }
 
-
-.padding-15{
+.hidethis{
+  display: none;
+}
+.padding-15:has(#filecomparemessage){
   overflow:scroll;
 }
 

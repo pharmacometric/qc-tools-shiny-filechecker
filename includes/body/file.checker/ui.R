@@ -21,16 +21,13 @@ body.panel.right.compare <- card.pro(
   icon = icon("file"),
   collapsed = 1L,
   header.bg = "purple",
-  xtra.header.content = textOutput("reportgraphstatus"),
-
+  div("filecomparemessage"),
 
   column(width = 6, class = "p-0", selectInput("codecfile1", "Original file:", choices = c(), width = "98%")),
   column(width = 6, class = "p-0", selectInput("codecfile2", "QC file:", choices = c(), width = "98%")),
 
-  column(width = 12, id="fcomparisonmetricsa",
-         outcomparev(id="comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = "80%", color = "green"),
-         outcomparev(id="comparefile2", id2 = "comparefile2b", label = "Sameness of files", value = "0%", color = "red")
-         ),
+
+  column(width = 12,div(id="fcomparisonmetricsa")         ),
   # diff files
   column(width = 12,
   diffrOutput("diffrfiles",width = "100%", height = "600px")),

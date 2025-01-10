@@ -29,6 +29,10 @@ updateDirStatus = function(message = "") {
 updateDirStatus4 = function(g){
 
 }
+updateFCStatus = function(message = "",color="red") {
+  shinyjs::runjs(paste0("$('#filecomparemessage').html('<blockquote style=\"color:", color, "\">", message, "</blockquote>')"))
+}
+
 
 updateGraphStatus = function(message = "") {
   shinyjs::runjs(paste0("$('#reportgraphstatus').html('", message, "')"))
@@ -148,8 +152,8 @@ compare_files_md5 <- function(file1, file2) {
   }
 
   # Calculate MD5 hash for both files
-  hash1 <- utils::md5sum(file1)
-  hash2 <- utils::md5sum(file2)
+  hash1 <- tools::md5sum(file1)
+  hash2 <- tools::md5sum(file2)
 
   # Compare the hashes
   identical(hash1, hash2)
@@ -175,7 +179,7 @@ percent_similarity <- function(file1, file2) {
   matching_lines <- sum(content1 == content2)
 
   # Calculate percent similarity
-  percent <- (matching_lines / max_length) * 100
+  percent <- round((matching_lines / max_length) * 100,2)
 
   return(percent)
 }
@@ -422,7 +426,14 @@ extract_pattern = function(file) {
   replacebr
 }
 
-
+outexactcomp <- function(filename,sameness = TRUE){
+  color2 = switch (as.boolean(sameness, type = 1),
+    "No" = "danger", "Yes" = "success"
+  )
+  .text1 = ifelse(filename,"The two files have the same file names.","The two files have different file names.")
+  .text2 = ifelse(sameness,"Both files are exactly the same.","Both files are different from each other!")
+  tags$div(class = paste0("label label-",color2),.text1, .text2)
+}
 
 outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value, color = "red") {
   tags$div(

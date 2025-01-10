@@ -156,7 +156,7 @@ compare_files_md5 <- function(file1, file2) {
   hash2 <- tools::md5sum(file2)
 
   # Compare the hashes
-  identical(hash1, hash2)
+  hash1==hash2
 }
 
 
@@ -329,80 +329,7 @@ switchicons = function(xfile = ""){
   return(.icon)
 }
 
-calculate_auc = function(time, concentration) {
-  # Check if inputs are of the same length
-  if (length(time) != length(concentration)) {
-    stop("Time and concentration vectors must be of the same length.")
-  }
 
-  # Sort the time and concentration data by time
-  sorted_indices = order(time)
-  time = time[sorted_indices]
-  concentration = concentration[sorted_indices]
-
-  # Calculate the AUC using the trapezoidal rule
-  auc = sum((time[-1] - time[-length(time)]) * (concentration[-1] + concentration[-length(concentration)]) / 2)
-
-  return(auc)
-}
-
-
-
-sampleplot = function() {
-  colss = sample(grDevices::colors(), 5)
-  plot(c(0, 20, 100),
-       c(0, 20, 100),
-       bg = colss[1:3],
-       xlab = "Sample x",
-       cex = 2,
-       pch = 21,
-       axes = 1L,
-       ylab = "Sample y",
-       bty = "n"
-  )
-  # box(lwd=2, col=colss[4])
-  text(50, 50, "Click 'Generate data version' to get started", cex = 1.5, pos = 3, col = "red")
-}
-
-
-
-
-data_summarised_overall = function(dataa) {
-  if (nrow(dataa)) {
-    dataa %>%
-      filter(not.na(.dv)) %>%
-      group_by(.summ, .tm) %>%
-      reframe(
-        dv_mean = mean(.dv),
-        dv_med = median(.dv),
-        sd = sd(.dv),
-        sem = sd(.dv) / sqrt(length((.dv))),
-        q95 = quantile(.dv, probs = 0.95),
-        q05 = quantile(.dv, probs = 0.05),
-        q975 = quantile(.dv, probs = 0.975),
-        q025 = quantile(.dv, probs = 0.025)
-      )
-  }
-}
-
-data_summarised_facet = function(dataa) {
-  if (nrow(dataa)) {
-    dataa %>%
-      filter(not.na(.dv)) %>%
-      group_by(.summ, .tm) %>%
-      reframe(
-        .colv = unique(.colv)[1],
-        dv_mean = mean(.dv),
-        dv_med = median(.dv),
-        sd = sd(.dv),
-        sem = sd(.dv) / sqrt(length((.dv))),
-        q95 = quantile(.dv, probs = 0.95),
-        q05 = quantile(.dv, probs = 0.05),
-        q975 = quantile(.dv, probs = 0.975),
-        q025 = quantile(.dv, probs = 0.025)
-      )
-  }
-}
 
 
 
@@ -427,12 +354,12 @@ extract_pattern = function(file) {
 }
 
 outexactcomp <- function(filename,sameness = TRUE){
-  color2 = switch (as.boolean(sameness, type = 1),
+  color2 = switch (as.character(as.boolean(sameness, type = 1)),
     "No" = "danger", "Yes" = "success"
   )
   .text1 = ifelse(filename,"The two files have the same file names.","The two files have different file names.")
   .text2 = ifelse(sameness,"Both files are exactly the same.","Both files are different from each other!")
-  tags$div(class = paste0("label label-",color2),.text1, .text2)
+  tags$div(class = paste0("mb-4 label label-",color2),.text1, .text2)
 }
 
 outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value, color = "red") {

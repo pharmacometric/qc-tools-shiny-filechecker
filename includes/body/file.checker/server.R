@@ -55,7 +55,7 @@ observe({
       selector = "#fcomparisonmetricsa",
       where = "beforeEnd",
       tagList(
-        outexactcomp(filename = file1 == file2, sameness = samefileness),br(),br(),
+        outexactcomp(filename = basename(file1) == basename(file2), sameness = samefileness),br(),br(),
         outcomparev(id = "comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = paste0(percsim, "%"), color = percsimcol),
       )
     )

@@ -381,3 +381,14 @@ outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value,
     )
   )
 }
+
+
+
+imgcomparev <- function(id, img1,img2){
+  .h = row(
+    class ="padding-15",
+    column(width = 6, class = "p-0", tags$div(tags$b(basename(img1))),tags$img(src=gsub("^www/", "", img1),width="100%")),
+    column(width = 6, class = "p-0", tags$div(tags$b(basename(img2))), tags$img(src=gsub("^www/", "", img2),width="100%"))
+  )
+  shinyjs::runjs(paste0("$('#",id,"').html('",gsub("\n", "", .h),"')"))
+}

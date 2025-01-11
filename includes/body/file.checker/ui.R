@@ -28,6 +28,7 @@ body.panel.right.compare <- card.pro(
   # diff files
   column(width = 12, style="padding:0px",
          tags$strong("File content comparison"),
+         div(id="diffrfilesimg"),
   diffrOutput("diffrfiles",width = "100%", height = "600px")),
 
 

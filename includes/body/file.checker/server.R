@@ -48,33 +48,43 @@ observe({
 
     # compare files
     samefileness <- compare_files_md5(file1, file2)
-    percsim <- percent_similarity(file1, file2)
-    percsimcol <- ifelse(percsim <= 50, "red", "green")
     shinyjs::runjs("$('#fcomparisonmetricsa').html('')")
     insertUI(
       selector = "#fcomparisonmetricsa",
       where = "beforeEnd",
       tagList(
-        outexactcomp(filename = basename(file1) == basename(file2), sameness = samefileness),br(),br(),
-        outcomparev(id = "comparefile1", id2 = "comparefile1b", label = "Similarity between the files", value = paste0(percsim, "%"), color = percsimcol),
-      )
+        outexactcomp(filename = basename(file1) == basename(file2), sameness = samefileness), br(), br())
     )
 
 
+    shinyjs::runjs("$('#diffrfilesimg').html('')")
+    shinyjs::runjs("$('#diffrfiles').html('')")
 
-
-
-    # do a diff
-    output$diffrfiles <- renderDiffr({
-      diffr(file1, file2,
-        wordWrap = input$fcwordWrap,
-        # width = input$fcwidth,
-        # height = input$fcheight,
-        minJumpSize = input$fcminjs,
-        contextSize = input$fccons,
-        before = paste0("Original (",basename(file1),")"), paste0("QC (",basename(file2),")")
+    if (tools::file_ext(file1) == "") {
+      insertUI(
+        selector = "#fcomparisonmetricsa",where = "beforeEnd",
+        outcomparev(id = "comparefile1", id2 = "comparefile1b",
+                    label = "Similarity between the files",
+                    value = paste0(percent_similarity(file1, file2), "%"), color = ifelse(percent_similarity(file1, file2) <= 50, "red", "green")),
       )
-    })
+      # do a diff
+      output$diffrfiles <- renderDiffr({
+        diffr(file1, file2,
+          wordWrap = input$fcwordWrap,
+          # width = input$fcwidth,
+          # height = input$fcheight,
+          minJumpSize = input$fcminjs,
+          contextSize = input$fccons,
+          before = paste0("Original (", basename(file1), ")"), paste0("QC (", basename(file2), ")")
+        )
+      })
+    } else {
+      if (is.image(file1)) {
+        imgcomparev(id = "diffrfilesimg", file1, file2)
+      }
+    }
+print(file1)
+print(file2)
     GLOBAL$selectedCheckFilesProcess <- FALSE
   }
 })

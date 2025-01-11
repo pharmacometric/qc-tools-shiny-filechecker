@@ -8,15 +8,9 @@
 ##
 #############################################################################
 #############################################################################
-# assemble right contents
-body.panel.right = primePanel(
-  width = 12,
-  body.panel.right.compare,
-  body.panel.right.codecheck
-)
 
 body.main = moveable(
   body.model.info, # model infor panel
   body.panel.left, # directory selector
-  body.panel.right # sims output panel # ui.part3.R
+  body.panel.right.compare #
 )

@@ -58,7 +58,7 @@ observe({
       if(is.image(file1))isImage = 1L
     }
 
-    if (!isImage & tools::file_ext(file1) %nin% c("pdf","doc","docx","xls","xlsx","ppt","pptx")) {
+    if (!isImage & tools::file_ext(file1) %nin% c("pdf","doc","docx","xls","xlsx","ppt","pptx","csv")) {
     #if (tools::file_ext(file1) %in% c("","R","py","Rmd","txt","csv","xpt","Rd")) {
       # diff for txt files and scripts
       insertUI(

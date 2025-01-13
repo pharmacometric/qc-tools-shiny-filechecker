@@ -9,20 +9,6 @@
 #############################################################################
 #############################################################################
 
-
-
-
-
-output$summaryrestbl = renderDT(
-  data01() %>% select(Group,ID,time,WT,Dose,cmt,ii,addl), options = list(lengthChange = FALSE)#,dom = 't'
-)
-
-output$rawrestbl = renderDT(
-  summary01(), options = list(lengthChange = FALSE), filter = list(position = "top")
-)
-
-
-
 observe({
 
 })

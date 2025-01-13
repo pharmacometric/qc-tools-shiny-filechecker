@@ -18,7 +18,7 @@ GLOBAL$code.convtm.libs.glue <- paste0('c("', paste(libs[c(10, 11, 12, 20, 19)],
 # plot panels
 body.panel.right.compare <- card.pro(
   title = "File compare",
-  icon = icon("file"),
+  icon = icon("book-open"),
   collapsed = 0L,
   togglebtn = 0L,
   editbtn = 0L,

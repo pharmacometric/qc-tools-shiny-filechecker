@@ -13,7 +13,7 @@
 
 observe({
   if (input$codecfile1 != "" & input$codecfile2 != "") {
-    GLOBAL$selectedCheckFiles <- list(
+    GLOBAL$selectedCheckFiles = list(
       file.path(input$dirfiletype1a, input$codecfile1),
       file.path(input$dirfiletype1b, input$codecfile2)
     )
@@ -21,7 +21,7 @@ observe({
       updateFCStatus("You may only compare files with the same file extension.")
     } else {
       updateFCStatus("")
-      GLOBAL$selectedCheckFilesProcess <- 1L
+      GLOBAL$selectedCheckFilesProcess = 1L
     }
   }
 })
@@ -34,12 +34,12 @@ observe({
 # diff file
 observe({
   if (GLOBAL$selectedCheckFilesProcess == 1L) {
-    file1 <- GLOBAL$selectedCheckFiles[[1]][1]
-    file2 <- GLOBAL$selectedCheckFiles[[2]][1]
+    file1 = GLOBAL$selectedCheckFiles[[1]][1]
+    file2 = GLOBAL$selectedCheckFiles[[2]][1]
 
 
     # compare files
-    samefileness <- compare_files_md5(file1, file2)
+    samefileness = compare_files_md5(file1, file2)
     shinyjs::runjs("$('#fcomparisonmetricsa').html('')")
     insertUI(
       selector = "#fcomparisonmetricsa",
@@ -68,7 +68,7 @@ observe({
                     value = paste0(percent_similarity(file1, file2), "%"), color = ifelse(percent_similarity(file1, file2) <= 50, "red", "green")),
       )
 
-      output$diffrfiles <- renderDiffr({
+      output$diffrfiles = renderDiffr({
         diffr(file1, file2,
           wordWrap = input$fcwordWrap,
           # width = input$fcwidth,
@@ -111,7 +111,7 @@ observe({
         nfile2 = tempfile()
         writeLines(read_docx(file2) %>% docx_summary() %>% dplyr::pull(text), con = nfile2)
 
-        output$diffrfiles <- renderDiffr({
+        output$diffrfiles = renderDiffr({
           diffr(nfile1, nfile2,
                 wordWrap = input$fcwordWrap,
                 minJumpSize = input$fcminjs,
@@ -138,7 +138,7 @@ observe({
         nfile2 = tempfile()
         writeLines(pdf_text(file2), con = nfile2)
 
-        output$diffrfiles <- renderDiffr({
+        output$diffrfiles = renderDiffr({
           diffr(nfile1, nfile2,
                 wordWrap = input$fcwordWrap,
                 minJumpSize = input$fcminjs,
@@ -166,7 +166,7 @@ observe({
         nfile2 = tempfile()
         writeLines(pptx_summary(read_pptx(file2))%>% dplyr::pull(text), con = nfile2)
 
-        output$diffrfiles <- renderDiffr({
+        output$diffrfiles = renderDiffr({
           diffr(nfile1, nfile2,
                 wordWrap = input$fcwordWrap,
                 # width = input$fcwidth,
@@ -192,7 +192,7 @@ observe({
         )
 
 
-        output$diffrfiles <- renderDiffr({
+        output$diffrfiles = renderDiffr({
           diffr(file1, file2,
                 wordWrap = input$fcwordWrap,
                 minJumpSize = input$fcminjs,
@@ -204,6 +204,6 @@ observe({
       }
     }
 
-    GLOBAL$selectedCheckFilesProcess <- 0L
+    GLOBAL$selectedCheckFilesProcess = 0L
   }
 })

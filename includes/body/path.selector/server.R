@@ -54,7 +54,7 @@ observeEvent(input$ufileupd1a,{
   originalfilename = input$ufileupd1a['name']
   newFilename = input$ufileupd1a$datapath
   extension = tools::file_ext(originalfilename)
-  acceptedextensions = c("zip","tgz","tar.gz")
+  acceptedextensions = c("zip","gz","tgz")
 
   if(extension %nin% acceptedextensions){
     updateDirStatus("The file selected should be a .zip or .tgz or .tar.gz")

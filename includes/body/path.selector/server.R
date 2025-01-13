@@ -87,6 +87,10 @@ observeEvent(input$ufileupd1a, {
     }
     shinyjs::runjs(paste0("$('#ufileupd1afiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
 
+
+    files3 = sort(list.files(file.orginalfolder, recursive = TRUE))
+    updateSelectInput(session, "codecfile1", choices = c("Select file" = "", files3))
+
   }
 })
 
@@ -121,5 +125,7 @@ observeEvent(input$ufileupd1b, {
     }
     shinyjs::runjs(paste0("$('#ufileupd1bfiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
 
+    files3 = sort(list.files(file.orginalfolder, recursive = TRUE))
+    updateSelectInput(session, "codecfile2", choices = c("Select file" = "", files3))
   }
 })

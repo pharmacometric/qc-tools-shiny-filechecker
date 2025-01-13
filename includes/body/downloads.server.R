@@ -16,7 +16,7 @@
 
 
 # download c vs t plot
-output$concvtimedownloadimg <- downloadHandler(
+output$concvtimedownloadimg = downloadHandler(
   filename = function() {
     fAddDate("app1-eda-concvs-img.png")
   },
@@ -33,7 +33,7 @@ output$concvtimedownloadimg <- downloadHandler(
 )
 
 # download c vs t ggplot object
-output$concvtimedownloadimg2 <- downloadHandler(
+output$concvtimedownloadimg2 = downloadHandler(
   filename = function() {
     fAddDate("app1-eda-concvs-obj.data")
   },
@@ -46,7 +46,7 @@ output$concvtimedownloadimg2 <- downloadHandler(
 
 
 # download c vs t code
-output$cdownloadconcvt2 <- downloadHandler(
+output$cdownloadconcvt2 = downloadHandler(
   filename = function() {
     fAddDate("app1-eda-concvs-tsfd-code.R.zip")
   },

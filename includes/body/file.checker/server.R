@@ -14,8 +14,8 @@
 observe({
   if (input$codecfile1 != "" & input$codecfile2 != "") {
     GLOBAL$selectedCheckFiles = list(
-      file.path(input$dirfiletype1a, input$codecfile1),
-      file.path(input$dirfiletype1b, input$codecfile2)
+      file.path(input[[GLOBAL$selectedfilesInput[1]]], input$codecfile1),
+      file.path(input[[GLOBAL$selectedfilesInput[2]]], input$codecfile2)
     )
     if (length(unique(tools::file_ext(GLOBAL$selectedCheckFiles))) == 2) {
       updateFCStatus("You may only compare files with the same file extension.")

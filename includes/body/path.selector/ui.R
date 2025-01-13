@@ -17,6 +17,7 @@ body.panel.left.setup = card.pro(
   expandbtn = 0L,
   editbtn = 0L,
   collapsed = 1L,
+  icon = icon("folder-open"),
   header.bg = "greenLight",
   tags$blockquote("Select directory and files to compare"),
 
@@ -39,7 +40,9 @@ body.panel.left.setup = card.pro(
         accept = c(".zip",".tgz",".tar.gz"),
         width = "100%"
       ),
-      div(id = "ufileupd1afiles")
+      textInput("ufileupd1apath", "Uploaded Original files directory path", width = "100%"),
+      shwhdbtn("ufileupd1afiles"),
+      div(id = "ufileupd1afiles", class = "hidethis")
     ),
     column(
       width = 6,
@@ -47,7 +50,9 @@ body.panel.left.setup = card.pro(
                 "Upload zipped QC directory (.zip or .tgz)",
                 accept = c(".zip",".tgz",".tar.gz"),
                 width = "100%"),
-      div(id = "ufileupd1bfiles")
+      textInput("ufileupd1bpath", "Uploaded QC files directory path", width = "100%"),
+      shwhdbtn("ufileupd1bfiles"),
+      div(id = "ufileupd1bfiles", class = "hidethis")
     )
   ),
   conditionalPanel(

@@ -36,13 +36,17 @@ body.panel.left.setup = card.pro(
       fileInput(
         "ufileupd1a",
         "Upload zipped Original directory (.zip or .tgz)",
+        accept = c(".zip",".tgz",".tar.gz"),
         width = "100%"
       ),
       div(id = "ufileupd1afiles")
     ),
     column(
       width = 6,
-      fileInput("ufileupd1b", "Upload zipped QC directory (.zip or .tgz)", width = "100%"),
+      fileInput("ufileupd1b",
+                "Upload zipped QC directory (.zip or .tgz)",
+                accept = c(".zip",".tgz",".tar.gz"),
+                width = "100%"),
       div(id = "ufileupd1bfiles")
     )
   ),

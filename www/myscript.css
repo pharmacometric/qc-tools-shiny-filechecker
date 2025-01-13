@@ -2,7 +2,7 @@
   height: 100%!important;
 }
 
-#dirfiletype1afiles, #dirfiletype1bfiles{
+#dirfiletype1afiles, #dirfiletype1bfiles, #ufileupd1afiles, #ufileupd1bfiles{
   max-height: 150px;
   border: 1px solid #ccc;
   padding: 5px;

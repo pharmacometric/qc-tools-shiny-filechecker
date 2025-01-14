@@ -10,7 +10,7 @@
 #############################################################################
 
 body.main = moveable(
-  body.model.info, # model infor panel
-  body.panel.left, # directory selector
-  body.panel.right.compare #
+  body.body.manual,
+  body.panel.paths,
+  body.panel.compare #
 )

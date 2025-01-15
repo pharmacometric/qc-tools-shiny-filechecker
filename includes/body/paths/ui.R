@@ -85,17 +85,3 @@ body.panel.paths = card.pro(
 )
 
 
-
-
-body.panel.left.stats = div(
-  # class="padding-15",
-  # initStore("all",rpkg.api.key = "f0d7a266f47a8ab4f8fc5d537d9f2d1cd33f8a2c4d2d2421e82b1ade1a974086"),
-  # viewsBox("tmpviewstats","loading views..."),br(),br(),
-  # lfButton("likebtn1",suffix="likes"),
-  # lfButton("followbtnt",suffix="followers")
-
-  )
-
-
-  # assemble left panel
-  body.panel.left = primePanel(width = 12, body.panel.left.setup, body.panel.left.stats)

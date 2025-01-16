@@ -1,4 +1,4 @@
-## <img src="www/logo.jpg"> QC Toolkit: File checker to compare expected output and user generated outputs
+## <img src="www/logo.jpg"> File checker to compare expected output and user generated outputs
 
 <img src="www/preview.png">
 

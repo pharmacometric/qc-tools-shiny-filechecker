@@ -10,8 +10,13 @@ observeEvent(input$aboutproject, {
   ))
 })
 
-
-showModal(modalDialog(
-  title = "About this app",
-  messageappabout
-))
+observeOnce(
+  {
+    showModal(modalDialog(
+      title = "About this app",
+      messageappabout
+    ))
+  },
+  input = input,
+  output = output
+)

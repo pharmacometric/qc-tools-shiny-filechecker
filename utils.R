@@ -64,63 +64,6 @@ disableSims <- function(is = "1L") {
 
 
 
-
-styler06 <- list(theme(
-  axis.title.y = element_text(face = "bold"),
-  panel.background = element_rect(colour = "#333333"),
-  strip.text = element_text(face = "bold")
-))
-
-styler00 <- list(theme(
-  panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-  axis.title.y = element_text(face = "bold"),
-  panel.background = element_rect(colour = "#333333"),
-  strip.text = element_text(face = "bold")
-))
-
-styler03 <- theme(
-  plot.title = element_text(
-    face = "bold",
-    hjust = 0.5, margin = margin(0, 0, 20, 0)
-  ),
-  text = element_text(),
-  panel.background = element_rect(colour = NA),
-  plot.background = element_rect(colour = NA),
-  panel.border = element_rect(colour = NA),
-  axis.title = element_text(face = "bold", size = rel(1)),
-  axis.title.y = element_text(angle = 90, vjust = 2),
-  axis.title.x = element_text(vjust = -0.2),
-  axis.text = element_text(),
-  axis.line.x = element_line(colour = "black"),
-  axis.line.y = element_line(colour = "black"),
-  axis.ticks = element_line(),
-  legend.key = element_rect(colour = NA),
-  legend.position = "bottom",
-  legend.direction = "horizontal",
-  legend.box = "vetical",
-  legend.key.size = unit(0.5, "cm"),
-  # legend.margin = unit(0, "cm"),
-  legend.title = element_text(face = "italic"),
-  plot.margin = unit(c(10, 5, 5, 5), "mm"),
-  strip.background = element_rect(colour = "#000000", fill = "#f3f3f3", linewidth = rel(1.6)),
-  strip.text = element_text(face = "bold")
-)
-styler01 <- list(
-  theme(
-    axis.title.x = element_text(size = 14),
-    axis.title.y = element_text(size = 14, face = "bold", angle = 90),
-    axis.text.x = element_text(size = 14),
-    axis.text.y = element_text(size = 14),
-    legend.text = element_text(size = 14),
-    legend.title = element_text(size = 14),
-    # panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    strip.text.x = element_text(size = 14, face = "bold")
-  )
-)
-
-
-
 getTimeV <- function(n, t0) {
   if (n > 1) {
     c(0, pop_off(cumsum(t0)))
@@ -388,12 +331,30 @@ switchicons <- function(xfile = "") {
     },
     "dtree" = {
       .icon <- "folder-tree"
+    },
+    {
+      .icon <- "file"
     }
   )
 
   return(.icon)
 }
 
+sort_by_name_and_ext <- function(file_paths) {
+  # Split the file names into name and extension
+  file_info <- data.frame(
+    file_name = tools::file_path_sans_ext(basename(file_paths)),
+    extension = tools::file_ext(file_paths),
+    full_path = file_paths,
+    stringsAsFactors = FALSE
+  )
+
+  # Sort by file name, then by extension
+  sorted_files <- file_info[order(file_info$extension), ]
+
+  # Return the sorted file paths
+  return(sorted_files$full_path)
+}
 
 add_file_size <- function(file_path) {
   # Get file size in bytes

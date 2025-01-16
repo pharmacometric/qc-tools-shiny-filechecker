@@ -12,7 +12,7 @@
 #############################################################################
 titleapp <- "QC toolset: script and output checker"
 header.main <- titlePanel(tags$div(
-  tags$img(src = "logo.jpg"), " ",
+  tags$img(src = "logo0.jpg"), " ",
   titleapp,
   tags$div(
     class = "hidden-mobile hidden-tablet pull-right",

@@ -1,6 +1,6 @@
 ############################################################################
 ############################################################################
-##  Document Path: includes/body/path.selector/server.R
+##  Document Path: includes/body/paths/server.R
 ##
 ##  Author: W.H
 ##
@@ -10,47 +10,59 @@
 ##
 #############################################################################
 #############################################################################
-observeEvent(input$checkGroupDatasetT,{
-  GLOBAL$selectedfilesInput = switch(input$checkGroupDatasetT,
-         "2" = c("ufileupd1apath","ufileupd1bpath"),
-         "1" = c("dirfiletype1a","dirfiletype1b")
-         )
+# observe changes in file path type, uploads or local path
+observeEvent(input$checkGroupDatasetT, {
+  GLOBAL$selectedfilesInput <- switch(input$checkGroupDatasetT,
+    "2" = c("ufileupd1apath", "ufileupd1bpath"),
+    "1" = c("dirfiletype1a", "dirfiletype1b")
+  )
 })
 
+
+# react to changes in local directory path for original
 observeEvent(input$dirfiletype1a, {
-  fillisttxt = c()
+  fillisttxt <- c()
   if (!dir.exists(input$dirfiletype1a)) {
     updateDirStatus("Directory does not exist for Original")
     shinyjs::runjs(paste0("$('#dirfiletype1afiles').html(\'\')"))
     return("")
   }
 
-  files3 = sort(list.files(path = input$dirfiletype1a))
+  files3 <- sort_by_name_and_ext(list.files(path = input$dirfiletype1a))
   updateSelectInput(session, "codecfile1", choices = c("Select file" = "", files3))
 
   for (kfil in files3) {
-    fillisttxt = c(fillisttxt, paste0(
-      '<div class="filelistc1"><i class="fas fa-file-pdf" role="presentation" aria-label="chart-area icon"></i> ',
+    fileicon <- ifelse(is.image(kfil),
+      switchicons("png"),
+      switchicons(file_ext(kfil))
+    )
+    fillisttxt <- c(fillisttxt, paste0(
+      '<div class="filelistc1"><i class="fas fa-', fileicon %or% "file", '" role="presentation" aria-label="chart-area icon"></i> ',
       kfil, "</div>"
     ))
   }
   shinyjs::runjs(paste0("$('#dirfiletype1afiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
 })
 
+# react to changes in local directory path for qc
 observeEvent(input$dirfiletype1b, {
-  fillisttxt = c()
+  fillisttxt <- c()
   if (!dir.exists(input$dirfiletype1b)) {
     updateDirStatus("Directory does not exist for QC")
     shinyjs::runjs(paste0("$('#dirfiletype1bfiles').html(\'\')"))
     return("")
   }
 
-  files3 = sort(list.files(path = input$dirfiletype1b))
+  files3 <- sort_by_name_and_ext(list.files(path = input$dirfiletype1b))
   updateSelectInput(session, "codecfile2", choices = c("Select file" = "", files3))
 
   for (kfil in files3) {
-    fillisttxt = c(fillisttxt, paste0(
-      '<div class="filelistc1"><i class="fa-regular fa-file-excel"></i> <i class="fa-solid fa-file-word"></i> ',
+    fileicon <- ifelse(is.image(kfil),
+      switchicons("png"),
+      switchicons(file_ext(kfil))
+    )
+    fillisttxt <- c(fillisttxt, paste0(
+      '<div class="filelistc1"><i class="fas fa-', fileicon %or% "file", '" role="presentation" aria-label="chart-area icon"></i> ',
       kfil, "</div>"
     ))
   }
@@ -58,13 +70,13 @@ observeEvent(input$dirfiletype1b, {
 })
 
 
-
+# react to changes in uploaded directory path for original
 observeEvent(input$ufileupd1a, {
-  originalfilename = input$ufileupd1a["name"]
-  newFilename = input$ufileupd1a$datapath
-  extension = tools::file_ext(originalfilename)
-  acceptedextensions = c("zip", "gz", "tgz")
-  file.orginalfolder = file.path(GLOBAL$storageDir, "Original")
+  originalfilename <- input$ufileupd1a["name"]
+  newFilename <- input$ufileupd1a$datapath
+  extension <- tools::file_ext(originalfilename)
+  acceptedextensions <- c("zip", "gz", "tgz")
+  file.orginalfolder <- file.path(GLOBAL$storageDir, "Original")
 
   if (extension %nin% acceptedextensions) {
     updateDirStatus("The file selected should be a .zip or .tgz or .tar.gz")
@@ -78,30 +90,33 @@ observeEvent(input$ufileupd1a, {
     }
 
     updateTextInput(inputId = "ufileupd1apath", value = file.orginalfolder)
-    fillisttxt = c()
+    fillisttxt <- c()
     for (kfil in list.files(file.orginalfolder, recursive = TRUE)) {
-      fillisttxt = c(fillisttxt, paste0(
-        '<div class="filelistc1"><i class="fa-regular fa-file-excel"></i> <i class="fa-solid fa-file-word"></i> ',
+      fileicon <- ifelse(is.image(kfil),
+        switchicons("png"),
+        switchicons(file_ext(kfil))
+      )
+      fillisttxt <- c(fillisttxt, paste0(
+        '<div class="filelistc1"><i class="fas fa-', fileicon %or% "file", '" role="presentation" aria-label="chart-area icon"></i> ',
         kfil, "</div>"
       ))
     }
     shinyjs::runjs(paste0("$('#ufileupd1afiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
 
 
-    files3 = sort(list.files(file.orginalfolder, recursive = TRUE))
+    files3 <- sort_by_name_and_ext(list.files(file.orginalfolder, recursive = TRUE))
     updateSelectInput(session, "codecfile1", choices = c("Select file" = "", files3))
-
   }
 })
 
 
-
+# react to changes in uploaded directory path for qc
 observeEvent(input$ufileupd1b, {
-  originalfilename = input$ufileupd1b["name"]
-  newFilename = input$ufileupd1b$datapath
-  extension = tools::file_ext(originalfilename)
-  acceptedextensions = c("zip", "gz", "tgz")
-  file.orginalfolder = file.path(GLOBAL$storageDir, "QC")
+  originalfilename <- input$ufileupd1b["name"]
+  newFilename <- input$ufileupd1b$datapath
+  extension <- tools::file_ext(originalfilename)
+  acceptedextensions <- c("zip", "gz", "tgz")
+  file.orginalfolder <- file.path(GLOBAL$storageDir, "QC")
 
   if (extension %nin% acceptedextensions) {
     updateDirStatus("The file selected should be a .zip or .tgz or .tar.gz")
@@ -116,16 +131,20 @@ observeEvent(input$ufileupd1b, {
 
 
     updateTextInput(inputId = "ufileupd1bpath", value = file.orginalfolder)
-    fillisttxt = c()
+    fillisttxt <- c()
     for (kfil in list.files(file.orginalfolder, recursive = TRUE)) {
-      fillisttxt = c(fillisttxt, paste0(
-        '<div class="filelistc1"><i class="fa-regular fa-file-excel"></i> <i class="fa-solid fa-file-word"></i> ',
+      fileicon <- ifelse(is.image(kfil),
+        switchicons("png"),
+        switchicons(file_ext(kfil))
+      )
+      fillisttxt <- c(fillisttxt, paste0(
+        '<div class="filelistc1"><i class="fas fa-', fileicon %or% "file", '" role="presentation" aria-label="chart-area icon"></i> ',
         kfil, "</div>"
       ))
     }
     shinyjs::runjs(paste0("$('#ufileupd1bfiles').html(\'", paste(fillisttxt, collapse = ""), "\')"))
 
-    files3 = sort(list.files(file.orginalfolder, recursive = TRUE))
+    files3 <- sort_by_name_and_ext(list.files(file.orginalfolder, recursive = TRUE))
     updateSelectInput(session, "codecfile2", choices = c("Select file" = "", files3))
   }
 })

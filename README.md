@@ -1,6 +1,6 @@
 ## <img src="www/logo.jpg"> QC Toolkit: File checker to compare expected output and user generated outputs
 
-<img src="www/preview2.png">
+<img src="www/preview.png">
 
 
 __Sample deployed template__: https://pharmacometric.shinyapps.io/qc-tools-shiny-filechecker/

@@ -27,6 +27,26 @@ runApp(launch.browser = TRUE)
 
 ```
 
+### Libraries and their versions
+
+```
+shiny, version 1.8.1.1
+shinyjs, version 2.1.0
+imager, version 1.0.2
+officer, version 0.6.6
+markdown, version 1.13
+tibble, version 3.2.1
+card.pro, version 2.3.0
+dplyr, version 1.1.4
+magrittr, version 2.0.3
+pdftools, version 3.4.1
+quickcode, version 1.0.4
+tools, version 4.4.1
+grid, version 4.4.1
+shinyStorePlus, version 1.4
+diffr, version 0.1
+```
+
 ### Features
 
 The following features are available in the current template for you to get started.

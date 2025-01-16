@@ -26,6 +26,8 @@ observe({
       updateFCStatus("")
       GLOBAL$selectedCheckFilesProcess <- 1L
     }
+  }else{
+    GLOBAL$selectedCheckFiles <- list()
   }
 })
 
@@ -40,6 +42,8 @@ observe({
     file1 <- GLOBAL$selectedCheckFiles[[1]][1]
     file2 <- GLOBAL$selectedCheckFiles[[2]][1]
 
+    # halt if the files do not exist
+    if(!file.exists(file1) | !file.exists(file2)) return()
 
     # compare files
     samefileness <- compare_files_md5(file1, file2)

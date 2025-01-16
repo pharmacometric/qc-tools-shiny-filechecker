@@ -1,6 +1,6 @@
 ############################################################################
 ############################################################################
-##  Document Path: ~/GitHub/pharmacometric-shiny-template-eda/includes/body/conc.vs.time/ui.R
+##  Document Path: includes/body/comparer/ui.R
 ##
 ##  Description: User interface for file compare
 ##
@@ -8,12 +8,6 @@
 ##
 #############################################################################
 #############################################################################
-
-# for(u in indexed(libs))message(u$key,"-",u$val)
-# for exporting code
-GLOBAL$code.convtm.tpl <- paste0(this.path, "/code.tpl")
-GLOBAL$code.convtm.libs.glue <- paste0('c("', paste(libs[c(10, 11, 12, 20, 19)], collapse = '","'), '")')
-
 
 # plot panels
 body.panel.compare <- card.pro(

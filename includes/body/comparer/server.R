@@ -60,7 +60,7 @@ observe({
     shinyjs::runjs("$('#diffrfilesimg').html('')")
     shinyjs::runjs("$('#diffrfiles').html('')")
 
-    # check if image
+    # check if images
     isImage <- 0L
     if (tools::file_ext(file1) != "") {
       if (is.image(file1)) isImage <- 1L
@@ -197,7 +197,7 @@ observe({
 
 
 
-      # for ppt documents
+      # for csv documents
       if (tools::file_ext(file1) %in% c("csv")) {
         togglebuffermsg("fcomparisonmetricsa", 1L)
         insertUI(

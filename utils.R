@@ -9,9 +9,6 @@
 #############################################################################
 #############################################################################
 
-library(ggplot2)
-library(grid)
-library(ggthemes)
 
 source.part <- function(path, which = c("ui", "server"), input = NULL, output = NULL, session = NULL) {
   which <- match.arg(which)
@@ -58,9 +55,6 @@ updateVariableHolder <- function(message = "") {
   shinyjs::runjs(paste0("$('#varnamesholder').html('", message, "')"))
 }
 
-disableSims <- function(is = "1L") {
-  shinyjs::runjs(paste0('$("#runsimbutton").prop("disabled",', is, ")"))
-}
 
 
 

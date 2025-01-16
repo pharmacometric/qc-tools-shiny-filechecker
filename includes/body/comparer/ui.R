@@ -2,6 +2,8 @@
 ############################################################################
 ##  Document Path: includes/body/comparer/ui.R
 ##
+##  Author: W.H
+##
 ##  Description: User interface for file compare
 ##
 ##  R version 4.4.1 (2024-06-14 ucrt)
@@ -43,10 +45,10 @@ body.panel.compare <- card.pro(
     )
   ),
 
-  # for comparison metrics
+  # for displaying comparison metrics
   div(id = "fcomparisonmetricsa"),
 
-  # for actual file comparison
+  # for the actual file comparison
   column(
     width = 12,
     style = "padding:0px",

@@ -461,7 +461,7 @@ outexactcomp <- function(filename, sameness = TRUE) {
   tags$div(class = paste0("mb-4 label label-", color2), .text1, .text2)
 }
 
-outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value, color = "red") {
+outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value, color = "redLight") {
   tags$div(
     id = id,
     tags$span(
@@ -469,7 +469,7 @@ outcomparev <- function(id, id2 = "", label = "", value = "50%", value2 = value,
       tags$span(class = "pull-right", id = id2, value)
     ),
     tags$div(
-      class = "progress",
+      class = "progress progress-striped",
       tags$div(class = paste0("progress-bar bg-color-", color), `data-transitiongoal` = "1", `aria-valuenow` = "1", style = paste0("width: ", value2, ";"), value2)
     )
   )

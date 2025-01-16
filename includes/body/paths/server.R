@@ -13,7 +13,7 @@
 observeEvent(input$checkGroupDatasetT,{
   GLOBAL$selectedfilesInput = switch(input$checkGroupDatasetT,
          "2" = c("ufileupd1apath","ufileupd1bpath"),
-         "1" = c("dirfiletype1a","dirfiletype1a")
+         "1" = c("dirfiletype1a","dirfiletype1b")
          )
 })
 

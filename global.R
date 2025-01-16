@@ -16,7 +16,7 @@
 quickcode::clean(source = c("utils.R"), clearPkgs = 1L)
 
 # load libraries
-libs = c("shiny","shinyjs","imager","DT","flextable","officer","markdown","tibble","card.pro","dplyr","ggplot2","magrittr","pdftools","quickcode","patchwork","table1","r2resize","rlang","grid","ggthemes","PerformanceAnalytics","GGally","ggforce","shinyStorePlus","diffr")
+libs = c("shiny","shinyjs","imager","officer","markdown","tibble","card.pro","dplyr","magrittr","pdftools","quickcode","tools","grid","shinyStorePlus","diffr")
 lapply(libs, function(l)library(l,character.only=1L))
 
 # add all individual utils

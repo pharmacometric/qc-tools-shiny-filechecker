@@ -9,8 +9,11 @@
 #############################################################################
 #############################################################################
 
-# set data versions to use for plotting
+# set colors for progress bar
+lowcol = "redLight"
+highcol = "green"
 
+# add progress file observe
 observe({
   if (input$codecfile1 != "" & input$codecfile2 != "") {
     GLOBAL$selectedCheckFiles = list(
@@ -65,7 +68,7 @@ observe({
         selector = "#fcomparisonmetricsa",where = "beforeEnd",
         outcomparev(id = "comparefile1", id2 = "comparefile1b",
                     label = "Similarity between the files",
-                    value = paste0(percent_similarity(file1, file2), "%"), color = ifelse(percent_similarity(file1, file2) <= 50, "red", "green")),
+                    value = paste0(percent_similarity(file1, file2), "%"), color = ifelse(percent_similarity(file1, file2) <= 50, lowcol, highcol)),
       )
 
       output$diffrfiles = renderDiffr({
@@ -84,11 +87,13 @@ observe({
       if (isImage) {
         togglebuffermsg("fcomparisonmetricsa",1L)
         imgcomparev(id = "diffrfilesimg", file1, file2)
+        print(file1)
+        print(file2)
         insertUI(
           selector = "#fcomparisonmetricsa",where = "beforeEnd",
           outcomparev(id = "comparefile1", id2 = "comparefile1b",
                       label = "Similarity between the image files",
-                      value = paste0(compare_images(file1, file2), "%"), color = ifelse(compare_images(file1, file2) <= 50, "red", "green")),
+                      value = paste0(compare_images(file1, file2), "%"), color = ifelse(compare_images(file1, file2) <= 50, lowcol, highcol)),
         )
         togglebuffermsg("fcomparisonmetricsa",0L)
 
@@ -102,7 +107,7 @@ observe({
           selector = "#fcomparisonmetricsa",where = "beforeEnd",
           outcomparev(id = "comparefile1", id2 = "comparefile1b",
                       label = "Similarity between the Word files",
-                      value = paste0(compare_word_files(file1, file2), "%"), color = ifelse(compare_word_files(file1, file2) <= 50, "red", "green")),
+                      value = paste0(compare_word_files(file1, file2), "%"), color = ifelse(compare_word_files(file1, file2) <= 50, lowcol, highcol)),
         )
 
 
@@ -129,7 +134,7 @@ observe({
           selector = "#fcomparisonmetricsa",where = "beforeEnd",
           outcomparev(id = "comparefile1", id2 = "comparefile1b",
                       label = "Similarity between the PDF files",
-                      value = paste0(compare_pdfs(file1, file2), "%"), color = ifelse(compare_pdfs(file1, file2) <= 50, "red", "green")),
+                      value = paste0(compare_pdfs(file1, file2), "%"), color = ifelse(compare_pdfs(file1, file2) <= 50, lowcol, highcol)),
         )
 
 
@@ -157,7 +162,7 @@ observe({
           selector = "#fcomparisonmetricsa",where = "beforeEnd",
           outcomparev(id = "comparefile1", id2 = "comparefile1b",
                       label = "Similarity between the PPT files",
-                      value = paste0(compare_ppts(file1, file2), "%"), color = ifelse(compare_ppts(file1, file2) <= 50, "red", "green")),
+                      value = paste0(compare_ppts(file1, file2), "%"), color = ifelse(compare_ppts(file1, file2) <= 50, lowcol, highcol)),
         )
 
 
@@ -188,7 +193,7 @@ observe({
           selector = "#fcomparisonmetricsa",where = "beforeEnd",
           outcomparev(id = "comparefile1", id2 = "comparefile1b",
                       label = "Similarity between the CSV files",
-                      value = paste0(compare_csvs(file1, file2), "%"), color = ifelse(compare_csvs(file1, file2) <= 50, "red", "green")),
+                      value = paste0(compare_csvs(file1, file2), "%"), color = ifelse(compare_csvs(file1, file2) <= 50, lowcol, highcol)),
         )
 
 

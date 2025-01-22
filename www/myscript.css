@@ -40,3 +40,8 @@ table.diff .line-no{
 table.diff .code{
   width: 48%!important;
 }
+
+.page-footer {
+    height: 120px;
+
+}
